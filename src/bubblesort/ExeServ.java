@@ -25,6 +25,12 @@ public class ExeServ implements ExecutorService {
         executor = Executors.newFixedThreadPool(2);
     }
 
+    public ExeServ(int[] arreglo) {
+        this.arreglo = arreglo;
+        executor = Executors.newFixedThreadPool(2);
+
+    }
+
     @Override
     public void execute(Runnable command) {
         executor.execute(command);
@@ -70,7 +76,7 @@ public class ExeServ implements ExecutorService {
         return sb.toString();
     }
 
- public void ordenar() {
+    public void ordenar() {
         final int numeroDeHilos = Runtime.getRuntime().availableProcessors();
         final int tamanoFragmento = tamano / numeroDeHilos;
 
@@ -147,39 +153,39 @@ public class ExeServ implements ExecutorService {
             }
         }
     }
-    
+
     @Override
     public <T> Future<T> submit(Callable<T> task) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public <T> Future<T> submit(Runnable task, T result) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Future<?> submit(Runnable task) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

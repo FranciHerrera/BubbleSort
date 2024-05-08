@@ -14,6 +14,10 @@ public class Secuencial {
         this.rango = rango;
     }
 
+    public Secuencial(int[] arreglo) {
+        this.arreglo = arreglo;
+    }
+
     public void generarArreglo() {
         Random rand = new Random();
         for (int i = 0; i < tamano; i++) {

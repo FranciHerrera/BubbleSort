@@ -18,6 +18,11 @@ public class ForkJoin {
         this.pool = new ForkJoinPool();
     }
 
+    public ForkJoin(int[] arreglo) {
+        this.arreglo = arreglo;
+        this.pool = new ForkJoinPool();
+    }
+
     public void generarArreglo() {
         Random rand = new Random();
         for (int i = 0; i < tamano; i++) {
@@ -38,6 +43,7 @@ public class ForkJoin {
     }
 
     private class BubbleSortTask extends RecursiveAction {
+
         private static final int THRESHOLD = 100;
         private int[] arr;
         private int start, end;

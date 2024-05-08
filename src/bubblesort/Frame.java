@@ -5,6 +5,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,13 +17,15 @@ import javax.swing.JTextArea;
 
 public class Frame extends JFrame implements ActionListener {
 
-    JButton btnSec, btnFork, btnExec, btnBorr;
+    JButton btnSec, btnFork, btnExec, btnBorr, btnGenArr;
+    ;
     JTextArea txtOrig, txtRes, txtTam, txtRan;
     JScrollPane spOrig, spRes;
     JLabel lbOrig, lbRes, lbTam, lbRan, lbTimeSec, lbTimeFork, lbTimeExec;
     Secuencial s;
     ForkJoin f;
     ExeServ ex;
+    int arreglo[];
 
     public Frame() {
         this.setTitle("Bubble Sort");
@@ -88,6 +92,11 @@ public class Frame extends JFrame implements ActionListener {
         backgroundPanel.setLayout(null);
         this.setContentPane(backgroundPanel);
 
+        btnGenArr = new JButton("Generar Arreglo");
+        btnGenArr.setBounds(10, 180, 150, 40);
+        btnGenArr.addActionListener(this);
+        this.add(btnGenArr);
+
         this.add(btnSec);
         this.add(lbTimeSec);
 
@@ -121,8 +130,7 @@ public class Frame extends JFrame implements ActionListener {
         if (e.getSource() == btnSec) {
             int tam = Integer.parseInt(txtTam.getText());
             int rango = Integer.parseInt(txtRan.getText());
-            s = new Secuencial(tam, rango);
-            s.generarArreglo();
+            s = new Secuencial(arreglo);
             txtOrig.setText(s.obtenerArreglo());
 
             long startTime = System.nanoTime();
@@ -137,9 +145,8 @@ public class Frame extends JFrame implements ActionListener {
         if (e.getSource() == btnFork) {
             int tam = Integer.parseInt(txtTam.getText());
             int rango = Integer.parseInt(txtRan.getText());
-            f = new ForkJoin(tam, rango);
-            f.generarArreglo();
-            txtOrig.setText(f.obtenerArreglo());
+            f = new ForkJoin(arreglo);
+            //txtOrig.setText(f.obtenerArreglo());
             long startTime = System.nanoTime();
             f.ordenar();
             long endTime = System.nanoTime();
@@ -150,9 +157,9 @@ public class Frame extends JFrame implements ActionListener {
         if (e.getSource() == btnExec) {
             int tam = Integer.parseInt(txtTam.getText());
             int rang = Integer.parseInt(txtRan.getText());
-            ex = new ExeServ(tam, rang);
-            ex.generarArreglo();
-            txtOrig.setText(ex.obtenerArreglo());
+            ex = new ExeServ(arreglo);
+            //ex.generarArreglo();
+            //txtOrig.setText(ex.obtenerArreglo());
             long startTime = System.nanoTime();
             PrintWriter out = new PrintWriter(System.out);
             out.flush();
@@ -162,17 +169,30 @@ public class Frame extends JFrame implements ActionListener {
             lbTimeExec.setText("Tiempo de ejecución: " + duration + " ms");
             txtRes.setText(ex.obtenerArreglo());
         }
+        if (e.getSource() == btnGenArr) {
+            generarArreglo();
+        }
         if (e.getSource() == btnBorr) {
             txtRes.setText("");
-            txtOrig.setText("");
+            //txtOrig.setText("");
             txtTam.setText("1000");
             txtRan.setText("100");
-            lbTimeSec.setText("Tiempo de ejecución: ");
-            lbTimeFork.setText("Tiempo de ejecución: ");
-            lbTimeExec.setText("Tiempo de ejecución: ");
+            //lbTimeSec.setText("Tiempo de ejecución: ");
+            //lbTimeFork.setText("Tiempo de ejecución: ");
+            //lbTimeExec.setText("Tiempo de ejecución: ");
         }
     }
 
+    public void generarArreglo() {
+        int tam = Integer.parseInt(txtTam.getText());
+        int rango = Integer.parseInt(txtRan.getText());
+        arreglo = new int[tam];
+        Random rand = new Random();
+        for (int i = 0; i < tam; i++) {
+            arreglo[i] = rand.nextInt(rango);
+        }
+        txtOrig.setText(Arrays.toString(arreglo));
+    }
 }
 
 class BackgroundPanel extends JPanel {
